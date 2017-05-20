@@ -1,49 +1,111 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+/**
+ * A service that manage the todos
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+class TodoService {
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    // private Array<Todo> items;
 
-        console.log('Received Event: ' + id);
+    constructor() {
+        this.items = [
+            { text: 'first todo', done: false },
+            { text: 'first todo', done: false },
+        ];
     }
-};
+
+    add(todo) {
+        this.items.push(todo);
+    }
+
+    get() {
+        return this.items;
+    }
+
+    /**
+     * Toggle todo state
+     * @param {*} item 
+     */
+    toggle(item) {
+        item.done = !item.done;
+    }
+
+}
+
+function addTodoToHtml(service, item, $items) {
+
+    var $todo = $('<div>')
+        .addClass('item')
+        .html(item.text);
+
+    // bind an click event 
+    $todo.on('click', () => {
+        if (item.done) {
+            $todo.removeClass('done');
+        } else {
+            $todo.addClass('done');
+        }
+
+        service.toggle(item);
+    });
+
+    $items.append($todo);
+}
+
+
+document.addEventListener('deviceready', () => {
+    
+    
+
+    // create an instance of the todo service
+    var service = new TodoService();
+
+    // create a reference for the <div id="items"></div>
+    var $items = $('#items');
+
+
+    /// 1. Fetch all todos
+
+    // get all the todos from the service
+    service.get().forEach(x => {
+
+        // render each todo 
+        addTodoToHtml(service, x, $items);
+    });
+
+    
+    
+    
+    /// 2. add new todo
+
+    // create a reference for the <button id="addBtn"></button>
+    var $addBtn = $('#addBtn');
+    
+    // create a reference for the <input id="todoTxt"/>
+    var $todoTxt = $('#todoTxt');
+
+    // bind on click event 
+    $addBtn.on('click', () => {
+
+        var todoText = $todoTxt.val();
+
+        // trim the spaces
+        if (todoText.trim().length == 0) {
+            alert('Please enter what you want todo 😁');
+
+            return;
+        }
+
+        var newItem = {
+            text: todoText,
+            done: false,
+        };
+
+        service.add(newItem);
+
+        addTodoToHtml(service, newItem, $items);
+
+        // clear the input again
+        $todoTxt.val('');
+
+    });
+
+});
