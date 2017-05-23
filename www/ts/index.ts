@@ -1,80 +1,119 @@
+declare var $;
+
 /**
  * A service that manage the todos
  */
-var TodoService = (function () {
-    function TodoService() {
+class TodoService {
+
+    private items: any[];
+
+    constructor() {
         this.items = [
             { text: 'first todo', done: false },
             { text: 'first todo', done: false },
         ];
     }
-    TodoService.prototype.add = function (todo) {
+
+    add(todo) {
         this.items.push(todo);
-    };
-    TodoService.prototype.get = function () {
+    }
+
+    get() {
         return this.items;
-    };
+    }
+
     /**
      * Toggle todo state
-     * @param {*} item
+     * @param {*} item 
      */
-    TodoService.prototype.toggle = function (item) {
+    toggle(item) {
         item.done = !item.done;
-    };
-    return TodoService;
-}());
+    }
+
+}
+
 function addTodoToHtml(service, item, $items) {
+
     var $todo = $('<div>')
         .addClass('item')
         .html(item.text);
+
     // bind an click event 
-    $todo.on('click', function () {
+    $todo.on('click', () => {
         if (item.done) {
             $todo.removeClass('done');
-        }
-        else {
+        } else {
             $todo.addClass('done');
         }
+
         service.toggle(item);
     });
+
     $items.append($todo);
 }
-document.addEventListener('deviceready', function () {
+
+
+document.addEventListener('deviceready', () => {
+
+
+
     // create an instance of the todo service
     var service = new TodoService();
+
     // create a reference for the <div id="items"></div>
     var $items = $('#items');
+
+
     /// 1. Fetch all todos
+
     // get all the todos from the service
-    service.get().forEach(function (x) {
+    service.get().forEach(x => {
+
         // render each todo 
         addTodoToHtml(service, x, $items);
     });
+
+
+
+
     /// 2. add new todo
+
     // create a reference for the <button id="addBtn"></button>
     var $addBtn = $('#addBtn');
+
     // create a reference for the <input id="todoTxt"/>
     var $todoTxt = $('#todoTxt');
+
     // bind on click event 
-    $addBtn.on('click', function () {
+    $addBtn.on('click', () => {
+
         var todoText = $todoTxt.val();
+
         // trim the spaces
         if (todoText.trim().length == 0) {
             alert('Please enter what you want todo 😁');
+
             return;
         }
+
         var newItem = {
             text: todoText,
-            done: false
+            done: false,
         };
+
         service.add(newItem);
+
         addTodoToHtml(service, newItem, $items);
+
         // clear the input again
         $todoTxt.val('');
+
     });
+
     navigator.contacts.pickContact(function (contact) {
-        alert(JSON.stringify(contact));
+        alert(JSON.stringify(contact))
     }, function (err) {
         console.log(err);
     });
+
 });
