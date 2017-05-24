@@ -1,28 +1,3 @@
-/**
- * A service that manage the todos
- */
-var TodoService = (function () {
-    function TodoService() {
-        this.items = [
-            { text: 'first todo', done: false },
-            { text: 'first todo', done: false },
-        ];
-    }
-    TodoService.prototype.add = function (todo) {
-        this.items.push(todo);
-    };
-    TodoService.prototype.get = function () {
-        return this.items;
-    };
-    /**
-     * Toggle todo state
-     * @param {*} item
-     */
-    TodoService.prototype.toggle = function (item) {
-        item.done = !item.done;
-    };
-    return TodoService;
-}());
 function addTodoToHtml(service, item, $items) {
     var $todo = $('<div>')
         .addClass('item')
@@ -65,16 +40,38 @@ document.addEventListener('deviceready', function () {
         }
         var newItem = {
             text: todoText,
-            done: false
+            done: false,
         };
         service.add(newItem);
         addTodoToHtml(service, newItem, $items);
         // clear the input again
         $todoTxt.val('');
     });
-    navigator.contacts.pickContact(function (contact) {
-        alert(JSON.stringify(contact));
-    }, function (err) {
-        console.log(err);
-    });
+    // navigator.contacts.pickContact(function (contact) {
+    //     alert(JSON.stringify(contact))
+    // }, function (err) {
+    //     console.log(err);
+    // });
 });
+var TodoService = (function () {
+    function TodoService() {
+        this.items = [
+            { text: 'first todo', done: false },
+            { text: 'first todo', done: false },
+        ];
+    }
+    TodoService.prototype.add = function (todo) {
+        this.items.push(todo);
+    };
+    TodoService.prototype.get = function () {
+        return this.items;
+    };
+    /**
+     * Toggle todo state
+     * @param {*} item
+     */
+    TodoService.prototype.toggle = function (item) {
+        item.done = !item.done;
+    };
+    return TodoService;
+}());

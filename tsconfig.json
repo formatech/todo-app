@@ -1,0 +1,15 @@
+{
+    "exclude": [
+        "plugins/**",
+        "platforms/**",
+        "hooks/**",
+        "node_modules/**",
+        "www/js/**"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        // "outDir": "www/js"
+        "outFile": "www/js/index.js"
+    }
+}
