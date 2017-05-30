@@ -20,7 +20,7 @@ A PhoneGap Todo App
  - `./monitor` to launch android device monitor, show logs
  - `./android` to launch the android sdk
  - `./android avd` to launch the avd
- - `./emulator  -list-avds` to list the available android emulator
+ - `./emulator  -list-avds` to list the avAndroid_Accelerated_x86ailable android emulator
  - 
 
 > **Note:** Run the x86 emulator it's about 10x faster 
@@ -77,3 +77,31 @@ You can find the path of android sdk by default under the following:
 - `npm install -g typescript` to install the **tsc** compiler globally
 - `tsc --init` to initialize a new `tscconfig.json` file (this command should be run from my todo project)
 - `tsc --watch --project .` to run the compiler in watch mode for this project (this command should be run from my todo project)
+
+## Session 04
+In this session we learned how to discover errors in our application by:
+
+1. Wrap our code with `try` `catch` statements
+
+```js
+try {
+  getItemsFromDatabase(); // this method will throw exception if no internet connection found
+} catch(error) {
+  alert('Make sure you have a valid internet connection');
+}
+``` 
+
+2. Use android `monitor` tool
+![Android Monitor Tool](./docs/android-monitor.png)
+
+We can open this tool from `<ANDROID_SDK>/tools/monitor`
+
+This tool show a list of connected devices, we can filter the logs by the application name
+
+3. Use the chrome inspector (most recommended)
+
+By opening Google Chrome go to: `chrome://inspect` select **devices** tab, then click on **inspect** next to your emulator/device.
+
+![Chrome Inspector](./docs/chrome-inspector.png)
+
+We can set **breakpoint** by clicking on the line number (under the **Sources** tab) or by writing `debugger;` in our code.

@@ -1,4 +1,12 @@
+function log(text) {
+    throw "fake error here";
+    // console.log(text);
+}
+
 function addTodoToHtml(service, item, $items) {
+
+
+    log('adding new todo: ' + item.text);
 
     var $todo = $('<div>')
         .addClass('item')
@@ -20,8 +28,6 @@ function addTodoToHtml(service, item, $items) {
 
 
 document.addEventListener('deviceready', () => {
-
-
 
     // create an instance of the todo service
     var service = new TodoService();

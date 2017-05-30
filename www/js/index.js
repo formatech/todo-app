@@ -1,3 +1,10 @@
+function log(text) {
+
+    if(text.indexOf('bassam') > -1) {
+        throw "Cannot connect to database to get todos";
+    }
+    // console.log(text);
+}
 function addTodoToHtml(service, item, $items) {
     var $todo = $('<div>')
         .addClass('item')
@@ -12,6 +19,17 @@ function addTodoToHtml(service, item, $items) {
         }
         service.toggle(item);
     });
+
+    for(var i =0; i< 10; i++) {
+
+        if(i === 9) {
+            debugger;
+        }
+        
+        console.log('message ' + i);
+    }    
+
+    log('adding new todo: ' + item.text);
     $items.append($todo);
 }
 document.addEventListener('deviceready', function () {
