@@ -1,6 +1,6 @@
 function log(text) {
-    throw "fake error here";
-    // console.log(text);
+    // throw "fake error here";
+    console.log(text);
 }
 
 function addTodoToHtml(service, item, $items) {
@@ -28,6 +28,22 @@ function addTodoToHtml(service, item, $items) {
 
 
 document.addEventListener('deviceready', () => {
+        
+
+    // setup navigation
+    $('#todo-page').show();
+    
+    // show todo page
+    $('[tab="todo-page"]').on('click', function () {
+        $('#todo-page').show();
+        $('#about-page').hide();
+    });
+    
+    // show about page
+    $('[tab="about-page"]').on('click', function () {
+        $('#about-page').show();
+        $('#todo-page').hide();
+    });
 
     // create an instance of the todo service
     var service = new TodoService();

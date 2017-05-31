@@ -1,11 +1,9 @@
 function log(text) {
-
-    if(text.indexOf('bassam') > -1) {
-        throw "Cannot connect to database to get todos";
-    }
-    // console.log(text);
+    // throw "fake error here";
+    console.log(text);
 }
 function addTodoToHtml(service, item, $items) {
+    log('adding new todo: ' + item.text);
     var $todo = $('<div>')
         .addClass('item')
         .html(item.text);
@@ -19,20 +17,21 @@ function addTodoToHtml(service, item, $items) {
         }
         service.toggle(item);
     });
-
-    for(var i =0; i< 10; i++) {
-
-        if(i === 9) {
-            debugger;
-        }
-        
-        console.log('message ' + i);
-    }    
-
-    log('adding new todo: ' + item.text);
     $items.append($todo);
 }
 document.addEventListener('deviceready', function () {
+    // setup navigation
+    $('#todo-page').show();
+    // show todo page
+    $('[tab="todo-page"]').on('click', function () {
+        $('#todo-page').show();
+        $('#about-page').hide();
+    });
+    // show about page
+    $('[tab="about-page"]').on('click', function () {
+        $('#about-page').show();
+        $('#todo-page').hide();
+    });
     // create an instance of the todo service
     var service = new TodoService();
     // create a reference for the <div id="items"></div>
