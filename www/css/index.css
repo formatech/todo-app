@@ -52,3 +52,41 @@ body {
     display: none;
 }
 
+tabs {
+    display: block;  
+    margin: 15px;  
+}
+
+tab {
+    padding: 10px;
+    color: #000;
+    margin: 0 10px;
+    border: 1px solid #000; 
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: .3s linear all;
+}
+
+tab.active {
+    background: #0072bc;
+    color: #fff;
+    font-weight: bold;
+}
+
+tab:hover {
+    color: #0072bc;
+    border-color: #0072bc;
+    background: orange;
+}
+
+
+page {
+    display: none;
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+page.active {
+    display: block;
+}

@@ -7,7 +7,7 @@
         "www/js/**"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "amd",
         "target": "es5",
         // "outDir": "www/js"
         "outFile": "www/js/index.js"

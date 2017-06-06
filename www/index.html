@@ -31,22 +31,37 @@
 <body>
     <div class="app">
 
-        <div id="tabs">
-            <button tab="todo-page">TODOS</button>
-            <button tab="about-page">ABOUT</button>
-        </div>
 
-        <div id="todo-page">
-            <div id="items">
-                <!-- items will be rendered here -->
-            </div>
-            <input id="todoTxt" type="text">
-            <button id="addBtn">+</button>
-        </div>
+        <tabs target="mypages">
+            <tab class="active">
+                My Todos
+            </tab>
+            <tab>
+                About Page
+            </tab>
+        </tabs>
 
-        <div id="about-page">
-            ABOUT CONTENT HERE
-        </div>
+        <page-container id="mypages">
+            <page class="active">
+                very fast
+            </page>
+            <page>
+
+                <div id="todo-page">
+                    <div id="items">
+
+                    </div>
+                    <input id="todoTxt" type="text">
+                    <button id="addBtn">+</button>
+                </div>
+
+            </page>
+            <page>
+                <div id="about-page">
+                    ABOUT CONTENT HERE
+                </div>
+            </page>
+        </page-container>
 
     </div>
 

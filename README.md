@@ -191,3 +191,120 @@ To make the pages hidden by default, we added the `display:none` rule in the `in
     display: none;
 }
 ```
+
+## Session 05
+instruct the typescript compiler to ignore the jQuery function `$` errors.
+```ts
+declare var $;
+```
+
+## Session 06 (Reusable component)
+In this session we learned how to make a reusable component instead of hardcoding the elements in the code.
+
+We will teach the browser how to recognise the new elements: **tabs**, **tab**, **page-container** and **page**.
+
+We followed these steps:
+
+### Define the markup (html)
+
+```html
+
+        <tabs target="mypages">
+            <tab class="active">
+                My Todos
+            </tab>
+            <tab>
+                About Page
+            </tab>
+            <tab>
+                Hello
+            </tab>
+        </tabs>
+
+        <page-container id="mypages">
+            <page class="active">
+                TODO PAGE
+            </page>
+            <page>
+                About page
+            </page>
+            <page>
+                Hello content
+            </page>
+        </page-container>
+```
+
+#### Apply the visual style (css)
+```css
+
+tabs {
+    display: block;  
+    margin: 15px;  
+}
+
+tab {
+    padding: 10px;
+    color: #000;
+    margin: 0 10px;
+    border: 1px solid #000; 
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: .3s linear all;
+}
+
+tab.active {
+    background: #0072bc;
+    color: #fff;
+    font-weight: bold;
+}
+
+tab:hover {
+    color: #0072bc;
+    border-color: #0072bc;
+    background: orange;
+}
+
+
+page {
+    display: none;
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+page.active {
+    display: block;
+}
+``` 
+
+By default all pages are hidden except pages with class `active`.
+
+### Implement the component logic
+
+```ts
+
+    $('tabs').each(function () {
+        var $tabs = $(this).find('tab');
+        var rootTab = $(this);
+        
+        var selector = '#' + $(this).attr('target');
+
+
+        var $pages = $(selector + ' page');
+
+        $tabs.on('click', function () {
+            var index = $(this).index();
+
+            // hide pages and show current page
+            $pages.removeClass('active');
+            $($pages[index]).addClass('active');
+
+            // remove active from tabs and add it to the current tab
+            $tabs.removeClass('active');
+            $($tabs[index]).addClass('active');
+
+        });
+
+    });
+
+```
