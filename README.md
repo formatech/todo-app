@@ -231,29 +231,29 @@ We followed these steps:
 
 ```html
 
-        <tabs target="mypages">
-            <tab class="active">
-                My Todos
-            </tab>
-            <tab>
-                About Page
-            </tab>
-            <tab>
-                Hello
-            </tab>
-        </tabs>
+<tabs target="mypages">
+    <tab class="active">
+        My Todos
+    </tab>
+    <tab>
+        About Page
+    </tab>
+    <tab>
+        Hello
+    </tab>
+</tabs>
 
-        <page-container id="mypages">
-            <page class="active">
-                TODO PAGE
-            </page>
-            <page>
-                About page
-            </page>
-            <page>
-                Hello content
-            </page>
-        </page-container>
+<page-container id="mypages">
+    <page class="active">
+        TODO PAGE
+    </page>
+    <page>
+        About page
+    </page>
+    <page>
+        Hello content
+    </page>
+</page-container>
 ```
 
 ##### Apply the visual style (css)
