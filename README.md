@@ -193,19 +193,39 @@ To make the pages hidden by default, we added the `display:none` rule in the `in
 ```
 
 ## Session 05
+Some useful notes in this session:
+
+### Ignore some typescript errors
 instruct the typescript compiler to ignore the jQuery function `$` errors.
 ```ts
 declare var $;
 ```
 
-## Session 06 (Reusable component)
-In this session we learned how to make a reusable component instead of hardcoding the elements in the code.
+### JavaScript and Css files order matter
+As a rule of thumb my code should be the last file included in the html page
 
+```html
+// ✅
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+// ❌
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+```
+
+
+
+## Session 06 (Reusable component)
+In this session we learned how to make a reusable component instead of hardcoding the elements in the code and how to use https://onsenui.com to give my app the native feeling.
+
+
+### Reusable Component (tabs component)
 We will teach the browser how to recognise the new elements: **tabs**, **tab**, **page-container** and **page**.
 
 We followed these steps:
 
-### Define the markup (html)
+#### Define the markup (html)
 
 ```html
 
@@ -234,7 +254,7 @@ We followed these steps:
         </page-container>
 ```
 
-#### Apply the visual style (css)
+##### Apply the visual style (css)
 ```css
 
 tabs {
@@ -279,16 +299,20 @@ page.active {
 
 By default all pages are hidden except pages with class `active`.
 
-### Implement the component logic
+#### Implement the component logic
+
+Inside `www/ts/tabs.components.ts`
+
+In this way we separate the tabs handling code outside of my project, **separation of concern** 
+
+> **Keep in mind:** This component should work the same, regardless of the logic of my app, this is a good indicator that I am on the right track.
 
 ```ts
 
+$(function () {
     $('tabs').each(function () {
         var $tabs = $(this).find('tab');
-        var rootTab = $(this);
-        
         var selector = '#' + $(this).attr('target');
-
 
         var $pages = $(selector + ' page');
 
@@ -302,9 +326,60 @@ By default all pages are hidden except pages with class `active`.
             // remove active from tabs and add it to the current tab
             $tabs.removeClass('active');
             $($tabs[index]).addClass('active');
-
         });
 
     });
+})()
+
+```
+
+### OnsenUI
+We have downloaded the library code from [this link](https://github.com/OnsenUI/OnsenUI-dist/archive/2.3.2.zip)
+We have referenced the following in our index.html page
+
+```html
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+    <!-- ONSEN UI CSS -->
+    <link rel="stylesheet" type="text/css" href="onsen/css/onsenui.css" />
+    <link rel="stylesheet" type="text/css" href="onsen/css/onsen-css-components.css" />
+```
+
+and 
+```html
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <!-- onsen ui js -->
+    <script type="text/javascript" src="onsen/js/onsenui.js"></script>
+
+    <script type="text/javascript" src="js/index.js"></script>
+```
+
+I highly recommend to check [the components page](https://onsen.io/v2/docs/css.html) to get an overview of the components available
+
+### Some useful notes in this session
+In css/jQuery you can use `bassam antar` selector to select all `antar's` from `bassam`
+
+for example
+
+```html
+<div id="book">
+    <div class="page"></div>
+    <div class="page"></div>
+</div>
+<div class="page"></div>
+```
+
+```css
+
+.page {
+    // this selector will match every `.page` element in the document
+}
+
+#book .page {
+    // here it will match all `.page`'s inside the #book 
+}
 
 ```

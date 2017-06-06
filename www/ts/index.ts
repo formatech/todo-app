@@ -33,48 +33,6 @@ function addTodoToHtml(service, item, $items) {
 
 document.addEventListener('deviceready', () => {
 
-
-    $('tabs').each(function () {
-        var $tabs = $(this).find('tab');
-        var rootTab = $(this);
-
-        var selector = '#' + $(this).attr('target');
-
-
-        var $pages = $(selector + ' page');
-
-        $tabs.on('click', function () {
-            var index = $(this).index();
-
-
-            // hide pages and show current page
-            $pages.removeClass('active');
-            $($pages[index]).addClass('active');
-
-            // remove active from tabs and add it to the current tab
-            $tabs.removeClass('active');
-            $($tabs[index]).addClass('active');
-
-        });
-
-    });
-
-
-    // setup navigation
-    $('#todo-page').show();
-
-    // show todo page
-    $('[tab="todo-page"]').on('click', function () {
-        $('#todo-page').show();
-        $('#about-page').hide();
-    });
-
-    // show about page
-    $('[tab="about-page"]').on('click', function () {
-        $('#about-page').show();
-        $('#todo-page').hide();
-    });
-
     // create an instance of the todo service
     var service = new TodoService();
 
