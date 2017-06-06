@@ -213,6 +213,8 @@ As a rule of thumb my code should be the last file included in the html page
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 ```
+### jQuery is a library written in JavaScript
+jQuery is a library that make it easy to manage DOM (Document Object Model) or the HTML, event handler
 
 
 
@@ -357,10 +359,10 @@ and
     <script type="text/javascript" src="js/index.js"></script>
 ```
 
-I highly recommend to check [the components page](https://onsen.io/v2/docs/css.html) to get an overview of the components available
+I highly recommend passing over [the components page](https://onsen.io/v2/docs/css.html) to get an overview of the components available
 
 ### Some useful notes in this session
-In css/jQuery you can use `bassam antar` selector to select all `antar's` from `bassam`
+In **CSS/jQuery** you can use `bassam antar` selector to select all `antar's` from `bassam`
 
 for example
 
@@ -382,4 +384,15 @@ for example
     // here it will match all `.page`'s inside the #book 
 }
 
+```
+
+The **:hover** pseudo selector allows me to style the element when the mouse is over
+```css 
+button {
+    color: black;
+}
+
+button:hover {
+    color: red;
+}
 ```
