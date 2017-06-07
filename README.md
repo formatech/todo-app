@@ -202,7 +202,7 @@ declare var $;
 ```
 
 ### JavaScript and Css files order matter
-As a rule of thumb my code should be the last file included in the html page
+As a rule of thumb my code should be included after other libraries
 
 ```html
 // ✅
@@ -214,12 +214,12 @@ As a rule of thumb my code should be the last file included in the html page
 <script type="text/javascript" src="js/jquery.min.js"></script>
 ```
 ### jQuery is a library written in JavaScript
-jQuery is a library that make it easy to manage DOM (Document Object Model) or the HTML, event handler
+jQuery is a library that make it easy to manage DOM (Document Object Model) or the HTML, event handler, etc...
 
 
 
 ## Session 06 (Reusable component)
-In this session we learned how to make a reusable component instead of hardcoding the elements in the code and how to use https://onsenui.com to give my app the native feeling.
+In this session we learned how to make a reusable component instead of hardcoding the elements in the code and how to use https://onsenui.com to give the app a native feeling.
 
 
 ### Reusable Component (tabs component)
