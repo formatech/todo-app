@@ -109,10 +109,10 @@ document.addEventListener('deviceready', () => {
             name: new ContactName(null, name, nickname),
             nickname: nickname,
             phoneNumbers: [
-                new ContactField('phonenumber', phoneNumbers),
+                new ContactField('home', phoneNumbers),
             ],
             emails: [
-                new ContactField('email', emails),
+                new ContactField('work', emails),
             ],
             note: note,
         });
