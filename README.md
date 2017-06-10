@@ -396,3 +396,121 @@ button:hover {
     color: red;
 }
 ```
+
+## Session 07 
+In this session we have learned how to deal with the Device Contact Api (**navigator.contacts**) through the phonegap plugin [**Cordova Plugin Contact**](https://github.com/apache/cordova-plugin-contacts).
+
+You can check it's documentation from [this link](https://github.com/apache/cordova-plugin-contacts).
+
+In Brief this method have 3 main methods:
+
+### navigator.contacts.create()
+Documentation link: [create](https://github.com/apache/cordova-plugin-contacts#navigatorcontactscreate)
+
+>**Note:** You have to call the **save()** method on the contact created by this method
+
+A quick example:
+
+```ts
+var bassam = navigator.contacts.create();
+bassam.displayName = "Bisso";
+bassam.nickname = "Bisso";
+
+// populate some fields for the name
+var name = new ContactName();
+name.givenName = "Bassam";
+name.familyName = "Yamouni";
+
+// setting the name for bassam
+bassam.name = name;
+
+bassam.phoneNumbers = [
+    new Contact('home', '03 123 456').
+    new Contact('work', '03 123 456').
+    new Contact('mobile', '03 123 456').
+]
+
+bassam.save(); // to save the contact
+```
+
+Or we can put the elements inline (Choose the method you you find easier)
+
+```ts
+var samer = contactsService.create({
+    displayName: "Samer",
+    name: new ContactName(null, "Samer", "Abou Chakra"),
+    nickname: "Ballouta",
+    phoneNumbers: [
+        new ContactField('home', phoneNumbers),
+    ],
+    emails: [
+        new ContactField('work', emails),
+    ],
+    note: note,
+});
+
+
+samer.save();
+```
+
+### navigator.contacts.find()
+Documentation link: [find](https://github.com/apache/cordova-plugin-contacts#navigatorcontactsfind)
+
+```ts
+var options      = new ContactFindOptions();
+options.filter   = 'Elie';
+
+// setting this to false will return the first contact only
+options.multiple = true; 
+
+options.desiredFields = [navigator.contacts.fieldType.id];
+
+options.hasPhoneNumber = true;
+
+// Search in the following fields
+var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+
+navigator.contacts.find(fields, function onSuscess(contacts) {
+    // display the list of contacts
+}, function onError(error) {
+    // show an error message
+}, options);
+```
+
+### navigator.contacts.pickContact()
+Documentation link: [pickContact](https://github.com/apache/cordova-plugin-contacts#navigatorcontactspickcontact)
+
+This method will open the native contact picker from the device
+
+![Contact Picker](docs/contact-picker.png)
+
+```ts
+navigator.contacts.pickContact(function(contact){
+    console.log('The following contact has been selected:' + JSON.stringify(contact));
+},function(err){
+    console.log('Error: ' + err);
+});
+```
+
+### A summary of the Classes (or types) availables in this plugin
+
+- [Contact](https://github.com/apache/cordova-plugin-contacts#contact)
+- [ContactName](https://github.com/apache/cordova-plugin-contacts#contactname)
+- [ContactAddress](https://github.com/apache/cordova-plugin-contacts#contactaddress)
+- [ContactField](https://github.com/apache/cordova-plugin-contacts#contactfield)
+- [ContactFieldType](https://github.com/apache/cordova-plugin-contacts#contactfieldtype)
+- [ContactOrganization](https://github.com/apache/cordova-plugin-contacts#contactorganization)
+
+### Notes in this session
+In JavaScript (Do not confuse with Java or other languages), object are very similar to arrays, so we can access objects with the bracket notation, so for example the following are the same:
+
+```ts
+var userName = contact['name'];
+```
+and 
+
+```ts
+var userName = contact.name;
+```
+
+>**Note:** Do not confuse, we've passed the property name as string in the first example. `contact['name']` and not `contact[name]`.

@@ -1,16 +1,11 @@
 declare var $;
-
-function ballouta() { }
-
-function log(text) {
-    // throw "fake error here";
-    console.log(text);
-}
+declare var ContactField;
+declare var ContactName;
 
 function addTodoToHtml(service, item, $items) {
 
 
-    log('adding new todo: ' + item.text);
+    // console.log('adding new todo: ' + item.text);
 
     var $todo = $('<div>')
         .addClass('item')
@@ -26,15 +21,21 @@ function addTodoToHtml(service, item, $items) {
 
         service.toggle(item);
     });
-
+    // console.log($items, $todo);
     $items.append($todo);
 }
 
 
 document.addEventListener('deviceready', () => {
 
+    // to ignore typescript compiler error
+    // same as `navigator.contacts`
+    var contactsService = navigator['contacts'];
+
     // create an instance of the todo service
     var service = new TodoService();
+
+    console.log(service);
 
     // create a reference for the <div id="items"></div>
     var $items = $('#items');
@@ -44,12 +45,10 @@ document.addEventListener('deviceready', () => {
 
     // get all the todos from the service
     service.get().forEach(x => {
-
+        console.log(x);
         // render each todo 
         addTodoToHtml(service, x, $items);
     });
-
-
 
 
     /// 2. add new todo
@@ -87,10 +86,44 @@ document.addEventListener('deviceready', () => {
     });
 
 
-    // navigator.contacts.pickContact(function (contact) {
-    //     alert(JSON.stringify(contact))
-    // }, function (err) {
-    //     console.log(err);
-    // });
+
+
+    $('#addcontact').on('click', function () {
+
+
+        // selection by attributes
+        var displayName = $('[name=displayName]').val();
+        var name = $('[name=name]').val();
+        var nickname = $('[name=nickname]').val();
+        var phoneNumbers = $('[name=phoneNumbers]').val();
+        var emails = $('[name=emails]').val();
+        var note = $('[name=note]').val();
+
+
+        console.log(displayName, name, nickname, phoneNumbers, emails, note);
+
+
+
+        var myContact = contactsService.create({
+            displayName: displayName,
+            name: new ContactName(null, name, nickname),
+            nickname: nickname,
+            phoneNumbers: [
+                new ContactField('phonenumber', phoneNumbers),
+            ],
+            emails: [
+                new ContactField('email', emails),
+            ],
+            note: note,
+        });
+
+
+        myContact.save(function (contact) {
+            alert('contact saved');
+        }, function (err) {
+            alert('Failed to save the contact')
+        });
+
+    });
 
 });

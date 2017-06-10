@@ -1,4 +1,4 @@
-$(function () {
+(function () {
     $('tabs').each(function () {
         var $tabs = $(this).find('tab');
         var selector = '#' + $(this).attr('target');

@@ -33,16 +33,13 @@
 
 
         <tabs target="mypages">
-            <tab class="active">
-                My Todos
-            </tab>
-            <tab>
-                About Page
-            </tab>
+            <tab class="active">My Todos</tab>
+            <tab>About Page</tab>
+            <tab>Contacts</tab>
         </tabs>
 
         <page-container id="mypages">
-            <page>
+            <page class="active">
 
                 <div id="todo-page">
                     <div id="items">
@@ -57,6 +54,20 @@
                 <div id="about-page">
                     ABOUT CONTENT HERE
                 </div>
+            </page>
+            <page>
+                <h3>Contacts page</h3>
+
+                <form name="adduser">
+                    <input type="text" name="displayName" placeholder="displayName" />
+                    <input type="text" name="name" placeholder="name" />
+                    <input type="text" name="nickname" placeholder="nickname" />
+                    <input type="text" name="phoneNumbers" placeholder="phoneNumbers" />
+                    <input type="text" name="emails" placeholder="emails" />
+                    <input type="text" name="note" placeholder="note" />
+                </form>
+
+                <button id="addcontact">Add Contact</button>
             </page>
         </page-container>
 

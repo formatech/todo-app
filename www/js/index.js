@@ -1,10 +1,5 @@
-function ballouta() { }
-function log(text) {
-    // throw "fake error here";
-    console.log(text);
-}
 function addTodoToHtml(service, item, $items) {
-    log('adding new todo: ' + item.text);
+    // console.log('adding new todo: ' + item.text);
     var $todo = $('<div>')
         .addClass('item')
         .html(item.text);
@@ -18,16 +13,22 @@ function addTodoToHtml(service, item, $items) {
         }
         service.toggle(item);
     });
+    // console.log($items, $todo);
     $items.append($todo);
 }
 document.addEventListener('deviceready', function () {
+    // to ignore typescript compiler error
+    // same as `navigator.contacts`
+    var contactsService = navigator['contacts'];
     // create an instance of the todo service
     var service = new TodoService();
+    console.log(service);
     // create a reference for the <div id="items"></div>
     var $items = $('#items');
     /// 1. Fetch all todos
     // get all the todos from the service
     service.get().forEach(function (x) {
+        console.log(x);
         // render each todo 
         addTodoToHtml(service, x, $items);
     });
@@ -53,13 +54,38 @@ document.addEventListener('deviceready', function () {
         // clear the input again
         $todoTxt.val('');
     });
+    $('#addcontact').on('click', function () {
+        // selection by attributes
+        var displayName = $('[name=displayName]').val();
+        var name = $('[name=name]').val();
+        var nickname = $('[name=nickname]').val();
+        var phoneNumbers = $('[name=phoneNumbers]').val();
+        var emails = $('[name=emails]').val();
+        var note = $('[name=note]').val();
+        console.log(displayName, name, nickname, phoneNumbers, emails, note);
+        var myContact = contactsService.create({
+            displayName: displayName,
+            name: new ContactName(null, name, nickname),
+            nickname: nickname,
+            phoneNumbers: [
+                new ContactField('phonenumber', phoneNumbers),
+            ],
+            emails: [
+                new ContactField('email', emails),
+            ],
+            note: note,
+        });
+        myContact.save();
+        alert('contact saved');
+        // console.log(myContact);
+    });
     // navigator.contacts.pickContact(function (contact) {
     //     alert(JSON.stringify(contact))
     // }, function (err) {
     //     console.log(err);
     // });
 });
-$(function () {
+(function () {
     $('tabs').each(function () {
         var $tabs = $(this).find('tab');
         var selector = '#' + $(this).attr('target');

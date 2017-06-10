@@ -19,7 +19,9 @@ body {
 
 /* Portrait layout (default) */
 .app {
-    text-align: center;    
+    text-align: center;   
+    max-width: 800px;
+    margin: 0 auto; 
 }
 
 
@@ -41,15 +43,13 @@ body {
 #todo-page {
     padding: 20px;
     min-height: 200px;
-    border: 3px solid red;
-    display: none;
+    border: 3px solid red;    
 }
 
 #about-page {
     padding: 20px;
     min-height: 200px;
     border: 3px solid green;
-    display: none;
 }
 
 tabs {
