@@ -19,7 +19,7 @@ class ContactController {
          | ----------------------------------------------------------
          | the `.val()` method return the value of the input
          | Sometimes you may need to call the `.trim()` method to
-         | remove the unecessary whitespaces
+         | remove the unnecessary whitespace
          |
          | Here we are using the **Attribute Selection** we can
          | use any method of selection for example by Class or by Id

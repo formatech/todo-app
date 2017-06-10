@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------
- | TypeScript declration
+ | TypeScript declaration
  | ----------------------------------------------------------
  | hint for the compiler that these variables are defined
  | outside of our code
@@ -32,7 +32,7 @@ var hideDialog = function (id) {
  | At this point all PhoneGap plugins are ready, for example
  | the `navigator.contacts` plugin.
  | 
- | However we are bootstraping our application also here,
+ | However we are bootstrapping our application also here,
  | That's fine as a start, unless we faced some conflicts 
  | with other libraries.
  |
