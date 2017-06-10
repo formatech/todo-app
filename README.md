@@ -20,7 +20,7 @@ A PhoneGap Todo App
  - `./monitor` to launch android device monitor, show logs
  - `./android` to launch the android sdk
  - `./android avd` to launch the avd
- - `./emulator  -list-avds` to list the avAndroid_Accelerated_x86ailable android emulator
+ - `./emulator  -list-avds` to list the available android emulator
  - 
 
 > **Note:** Run the x86 emulator it's about 10x faster 
@@ -104,11 +104,11 @@ We can open this tool from `<ANDROID_SDK>/tools/monitor` or from **Android Studi
 
 This tool show a list of connected devices, we can filter the logs by the application name, in our case the application name is: `com.example.todo`
 
-#### 3. Wraping our code with `try catch` statements
+#### 3. Wrapping our code with `try catch` statements
 
 ```js
 function getItemsFromDatabase() {
-  throw "No connecction";
+  throw "No connection";
 }
 
 /// ....
@@ -223,7 +223,7 @@ In this session we learned how to make a reusable component instead of hardcodin
 
 
 ### Reusable Component (tabs component)
-We will teach the browser how to recognise the new elements: **tabs**, **tab**, **page-container** and **page**.
+We will teach the browser how to recognize the new elements: **tabs**, **tab**, **page-container** and **page**.
 
 We followed these steps:
 
@@ -433,7 +433,7 @@ bassam.phoneNumbers = [
 bassam.save(); // to save the contact
 ```
 
-Or we can put the elements inline (Choose the method you you find easier)
+Or we can put the elements inline (Choose the method you find easier)
 
 ```ts
 var samer = contactsService.create({
@@ -492,7 +492,7 @@ navigator.contacts.pickContact(function(contact){
 });
 ```
 
-### A summary of the Classes (or types) availables in this plugin
+### A summary of the Classes (or types) available in this plugin
 
 - [Contact](https://github.com/apache/cordova-plugin-contacts#contact)
 - [ContactName](https://github.com/apache/cordova-plugin-contacts#contactname)
