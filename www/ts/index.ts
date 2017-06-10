@@ -1,129 +1,107 @@
+/*-----------------------------------------------------------
+ | TypeScript declration
+ | ----------------------------------------------------------
+ | hint for the compiler that these variables are defined
+ | outside of our code
+ |---------------------------------------------------------*/
 declare var $;
-declare var ContactField;
-declare var ContactName;
-
-function addTodoToHtml(service, item, $items) {
+declare var ons;
 
 
-    // console.log('adding new todo: ' + item.text);
+/*-----------------------------------------------------------
+ | Global functions
+ | ----------------------------------------------------------
+ | Functions that are somehow independent from the logic of 
+ | the app, for example `random`, `showDialog`, `hideDialog`
+ |---------------------------------------------------------*/
 
-    var $todo = $('<div>')
-        .addClass('item')
-        .html(item.text);
+var showDialog = function (id) {
+    var dialog: any = document.getElementById(id);
+    dialog.show();
+}
 
-    // bind an click event 
-    $todo.on('click', () => {
-        if (item.done) {
-            $todo.removeClass('done');
-        } else {
-            $todo.addClass('done');
-        }
-
-        service.toggle(item);
-    });
-    // console.log($items, $todo);
-    $items.append($todo);
+var hideDialog = function (id) {
+    var dialog: any = document.getElementById(id);
+    dialog.hide();
 }
 
 
+/*-----------------------------------------------------------
+ | PhoneGap Device ready event 
+ | ----------------------------------------------------------
+ | At this point all PhoneGap plugins are ready, for example
+ | the `navigator.contacts` plugin.
+ | 
+ | However we are bootstraping our application also here,
+ | That's fine as a start, unless we faced some conflicts 
+ | with other libraries.
+ |
+ |---------------------------------------------------------*/
+
 document.addEventListener('deviceready', () => {
 
-    // to ignore typescript compiler error
-    // same as `navigator.contacts`
-    var contactsService = navigator['contacts'];
+    var todoService = new TodoService();
+    var todoController = new TodoController(todoService);
 
-    // create an instance of the todo service
-    var service = new TodoService();
+    // same as navigator.contacts
+    // https://github.com/formatech/todo-app/tree/session-07#notes-in-this-session
+    var contactService = navigator['contacts'];
+    var contactController = new ContactController(contactService);
 
-    console.log(service);
+    var tabs: any = document.querySelector('ons-tabbar');
 
-    // create a reference for the <div id="items"></div>
-    var $items = $('#items');
-
-
-    /// 1. Fetch all todos
-
-    // get all the todos from the service
-    service.get().forEach(x => {
-        console.log(x);
-        // render each todo 
-        addTodoToHtml(service, x, $items);
-    });
+    // Show the first page by default
+    // https://onsen.io/v2/docs/js/ons-tabbar.html#method-setActiveTab
+    tabs.setActiveTab(0);
 
 
-    /// 2. add new todo
+    // Watch for tab change, so we update the content of each page accordingly
+    // https://onsen.io/v2/docs/js/ons-tabbar.html#event-postchange
+    tabs.addEventListener('postchange', function (event) {
 
-    // create a reference for the <button id="addBtn"></button>
-    var $addBtn = $('#addBtn');
+        var page = event.tabItem.page;
 
-    // create a reference for the <input id="todoTxt"/>
-    var $todoTxt = $('#todoTxt');
+        if (page === 'all.html') {
 
-    // bind on click event 
-    $addBtn.on('click', () => {
+            todoController.renderAll();
 
-        var todoText = $todoTxt.val();
+        } else if (page === 'pending.html') {
 
-        // trim the spaces
-        if (todoText.trim().length == 0) {
-            alert('Please enter what you want todo 😁');
+            todoController.renderPending();
 
-            return;
+        } else if (page === 'completed.html') {
+
+            todoController.renderCompleted();
+
+        } else if (page === 'contacts.html') {
+
+            contactController.renderAll();
+
         }
 
-        var newItem = {
-            text: todoText,
-            done: false,
-        };
-
-        service.add(newItem);
-
-        addTodoToHtml(service, newItem, $items);
-
-        // clear the input again
-        $todoTxt.val('');
-
     });
 
-
-
-
-    $('#addcontact').on('click', function () {
-
-
-        // selection by attributes
-        var displayName = $('[name=displayName]').val();
-        var name = $('[name=name]').val();
-        var nickname = $('[name=nickname]').val();
-        var phoneNumbers = $('[name=phoneNumbers]').val();
-        var emails = $('[name=emails]').val();
-        var note = $('[name=note]').val();
-
-
-        console.log(displayName, name, nickname, phoneNumbers, emails, note);
-
-
-
-        var myContact = contactsService.create({
-            displayName: displayName,
-            name: new ContactName(null, name, nickname),
-            nickname: nickname,
-            phoneNumbers: [
-                new ContactField('home', phoneNumbers),
-            ],
-            emails: [
-                new ContactField('work', emails),
-            ],
-            note: note,
-        });
-
-
-        myContact.save(function (contact) {
-            alert('contact saved');
-        }, function (err) {
-            alert('Failed to save the contact')
-        });
-
+    /*-----------------------------------------------------------
+    | Buttons Bindings
+    | ----------------------------------------------------------
+    | 
+    | We can also use the raw JavaScript Api to select element, 
+    | for example 
+    |
+    | document.querySelector('#btn-add-todo').onclick = function() {
+    |   // do you logic here   
+    | }
+    |
+    |---------------------------------------------------------*/
+    $('#btn-add-todo').on('click', function () {
+        todoController.addTodo();
     });
 
+    $('#btn-clear-todo').on('click', function () {
+        todoController.clearTodos();
+    });
+
+    $('#btn-add-contact').on('click', function () {
+        contactController.addContact();
+    });
 });

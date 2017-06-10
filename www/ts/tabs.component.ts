@@ -1,3 +1,15 @@
+declare var $;
+
+/*-----------------------------------------------------------
+ | Component declaration
+ | ----------------------------------------------------------
+ | A component is a reusable UI control that encapsulate
+ | it's own logic
+ |
+ | If you are finding yourself writing to much code to 
+ | manage the UI most probably you need to rewrite your code 
+ | in a component
+ |---------------------------------------------------------*/
 (function () {
     $('tabs').each(function () {
         var $tabs = $(this).find('tab');

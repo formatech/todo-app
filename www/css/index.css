@@ -20,6 +20,7 @@ body {
 /* Portrait layout (default) */
 .app {
     text-align: center;   
+    display: none;
     max-width: 800px;
     margin: 0 auto; 
 }

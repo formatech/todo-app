@@ -7,7 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *"
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src data: 'self'"
     />
     <!-- Good default declaration:
     * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
@@ -19,65 +19,142 @@
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
+    <link rel="stylesheet" type="text/css" href="onsenui/css/onsenui.css" />
+    <link rel="stylesheet" type="text/css" href="onsenui/css/onsen-css-components.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>Hello World</title>
-    <script>
-        // window.onerror = function(err) {
-        //     alert('Error occured: ' + err);
-        // }
-    </script>
+    <title>Todo App</title>
 </head>
 
 <body>
-    <div class="app">
 
+    <ons-tabbar animation="slide">
+        <ons-tab label="All" page="all.html">
+        </ons-tab>
+        <ons-tab label="Pending" page="pending.html">
+        </ons-tab>
+        <ons-tab label="Completed" page="completed.html">
+        </ons-tab>
+        <ons-tab label="Contacts" page="contacts.html">
+        </ons-tab>
+    </ons-tabbar>
 
-        <tabs target="mypages">
-            <tab class="active">My Todos</tab>
-            <tab>About Page</tab>
-            <tab>Contacts</tab>
-        </tabs>
+    <ons-template id="all.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center">Todos</div>
+            </ons-toolbar>
 
-        <page-container id="mypages">
-            <page class="active">
+            <ons-list id="all">
 
-                <div id="todo-page">
-                    <div id="items">
-
+                <!-- todos will be rendered here -->
+                <!--<ons-list-item tappable modifier="chevron">
+                    <div class="center">
+                        Turn it on
                     </div>
-                    <input id="todoTxt" type="text">
-                    <button id="addBtn">+</button>
-                </div>
+                    <div class="right">
+                        <ons-switch></ons-switch>
+                    </div>
+                </ons-list-item>-->
 
-            </page>
-            <page>
-                <div id="about-page">
-                    ABOUT CONTENT HERE
-                </div>
-            </page>
-            <page>
-                <h3>Contacts page</h3>
+            </ons-list>
 
-                <form name="adduser">
-                    <input type="text" name="displayName" placeholder="displayName" />
-                    <input type="text" name="name" placeholder="name" />
-                    <input type="text" name="nickname" placeholder="nickname" />
-                    <input type="text" name="phoneNumbers" placeholder="phoneNumbers" />
-                    <input type="text" name="emails" placeholder="emails" />
-                    <input type="text" name="note" placeholder="note" />
+            <div style="padding:10px; margin-top:10px">
+                <ons-button id="btn-clear-todo" modifier="large">CLEAR ALL TODOS</ons-button>
+            </div>
+
+            <ons-fab onclick="showDialog('dialog-add-todo')" position="bottom right">
+                <ons-icon icon="md-plus"></ons-icon>
+            </ons-fab>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="pending.html">
+        <ons-page>
+
+            <ons-toolbar>
+                <div class="center">Pending</div>
+            </ons-toolbar>
+
+            <ons-list id="pending">
+                <!-- items will be rendered here -->
+            </ons-list>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="completed.html">
+        <ons-page>
+
+            <ons-toolbar>
+                <div class="center">Completed</div>
+            </ons-toolbar>
+
+            <ons-list id="completed">
+                <!-- items will be rendered here -->
+            </ons-list>
+
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="contacts.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center">My Contacts</div>
+            </ons-toolbar>
+
+            <ons-list id="contacts">
+                <!--<ons-list-item>
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <div class="center">
+                        <span class="list-item__title">Cutest kitty</span>
+                        <span class="list-item__subtitle">On the Internet</span>
+                    </div>
+                </ons-list-item>-->
+            </ons-list>
+
+            <ons-fab onclick="showDialog('dialog-add-contact')" position="bottom right">
+                <ons-icon icon="md-plus"></ons-icon>
+            </ons-fab>
+        </ons-page>
+    </ons-template>
+
+    <ons-dialog id="dialog-add-todo">
+        <div style="text-align: center; margin-top: 30px;">
+            <p>
+                <ons-input id="input-todo" modifier="underbar" placeholder="What you want to do ?" float></ons-input>
+            </p>
+            <p style="margin-top: 30px;">
+                <ons-button id="btn-add-todo">Save</ons-button>
+                <ons-button modifier="quiet" onclick="hideDialog('dialog-add-todo')">Cancel</ons-button>
+            </p>
+        </div>
+    </ons-dialog>
+
+    <ons-dialog id="dialog-add-contact">
+        <div style="text-align: center; margin-top: 30px;">
+            <p>
+                <form name="form-add-contact">
+                    <ons-input modifier="underbar" float name="displayName" placeholder="displayName"></ons-input>
+                    <ons-input modifier="underbar" float name="name" placeholder="name"></ons-input>
+                    <ons-input modifier="underbar" float name="nickname" placeholder="nickname"></ons-input>
+                    <ons-input modifier="underbar" float name="phoneNumbers" placeholder="phoneNumbers"></ons-input>
+                    <ons-input modifier="underbar" float name="emails" placeholder="emails"></ons-input>
+                    <ons-input modifier="underbar" float name="note" placeholder="note"></ons-input>
                 </form>
 
-                <button id="addcontact">Add Contact</button>
-            </page>
-        </page-container>
+            </p>
+            <p style="margin-top: 30px;">
+                <ons-button id="btn-add-contact">Save</ons-button>
+                <ons-button modifier="quiet" onclick="hideDialog('dialog-add-contact')">Cancel</ons-button>
+            </p>
+        </div>
+    </ons-dialog>
 
-    </div>
-
-    <script type="text/javascript" src="cordova.js"></script>
-
+    <script src="cordova.js"></script>
     <script src="js/jquery.min.js"></script>
-
-    <script type="text/javascript" src="js/index.js"></script>
+    <script src="onsenui/js/onsenui.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

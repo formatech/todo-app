@@ -1,10 +1,6 @@
 {
-    "exclude": [
-        "plugins/**",
-        "platforms/**",
-        "hooks/**",
-        "node_modules/**",
-        "www/js/**"
+    "include": [
+        "www/ts"
     ],
     "compilerOptions": {
         "module": "amd",
