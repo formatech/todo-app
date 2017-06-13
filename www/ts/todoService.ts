@@ -14,10 +14,10 @@
 class TodoService {
     
     
-    private items: any[];
+    private items: any[] = [];
 
     constructor() {
-        this.items = this._read();
+        
     }
     
     /**
@@ -25,8 +25,7 @@ class TodoService {
      * @param todo 
      */
     add(todo) {
-        this.items.push(todo);
-        this._write();
+        this.items.push(todo);        
     }
     
     /**
@@ -41,7 +40,6 @@ class TodoService {
      */
     clear() {
         this.items = [];
-        this._write();
     }
 
     /**
@@ -50,31 +48,6 @@ class TodoService {
      */
     toggle(item) {
         item.done = !item.done;
-        this._write();
-    }
-
-    /**
-     * Load items from localStorage
-     * 
-     * @internal
-     */
-    private _read(): any[] {
-
-        if (localStorage.getItem('items')) {
-            return JSON.parse(localStorage.getItem('items'));
-        }
-
-        return [];
-    }
-
-    /**
-     * Persist items to localStorage
-     * 
-     * @internal
-     */
-    private _write() {
-        var str = JSON.stringify(this.items);
-        localStorage.setItem('items', str);
     }
 
 }

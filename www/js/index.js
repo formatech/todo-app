@@ -9,7 +9,7 @@ var ContactController = (function () {
          | ----------------------------------------------------------
          | the `.val()` method return the value of the input
          | Sometimes you may need to call the `.trim()` method to
-         | remove the unecessary whitespaces
+         | remove the unnecessary whitespace
          |
          | Here we are using the **Attribute Selection** we can
          | use any method of selection for example by Class or by Id
@@ -115,7 +115,7 @@ var hideDialog = function (id) {
  | At this point all PhoneGap plugins are ready, for example
  | the `navigator.contacts` plugin.
  |
- | However we are bootstraping our application also here,
+ | However we are bootstrapping our application also here,
  | That's fine as a start, unless we faced some conflicts
  | with other libraries.
  |
@@ -346,7 +346,7 @@ var TodoController = (function () {
  |---------------------------------------------------------*/
 var TodoService = (function () {
     function TodoService() {
-        this.items = this._read();
+        this.items = [];
     }
     /**
      * Add new Todo
@@ -354,7 +354,6 @@ var TodoService = (function () {
      */
     TodoService.prototype.add = function (todo) {
         this.items.push(todo);
-        this._write();
     };
     /**
      * Return all todos
@@ -367,7 +366,6 @@ var TodoService = (function () {
      */
     TodoService.prototype.clear = function () {
         this.items = [];
-        this._write();
     };
     /**
      * Toggle todo state
@@ -375,27 +373,6 @@ var TodoService = (function () {
      */
     TodoService.prototype.toggle = function (item) {
         item.done = !item.done;
-        this._write();
-    };
-    /**
-     * Load items from localStorage
-     *
-     * @internal
-     */
-    TodoService.prototype._read = function () {
-        if (localStorage.getItem('items')) {
-            return JSON.parse(localStorage.getItem('items'));
-        }
-        return [];
-    };
-    /**
-     * Persist items to localStorage
-     *
-     * @internal
-     */
-    TodoService.prototype._write = function () {
-        var str = JSON.stringify(this.items);
-        localStorage.setItem('items', str);
     };
     return TodoService;
 }());
