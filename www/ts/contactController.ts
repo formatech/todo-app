@@ -94,7 +94,7 @@ class ContactController {
             multiple: true
         };
 
-        var items = this.contactService.find(
+        this.contactService.find(
             fieldsToSearchOn,
             (contacts) => {
                 this._renderItems(this.$contactsHolder, contacts);

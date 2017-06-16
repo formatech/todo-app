@@ -12,30 +12,30 @@
  |---------------------------------------------------------*/
 
 class TodoService {
-    
-    
+
+
     private items: any[];
 
     constructor() {
         this.items = this._read();
     }
-    
+
     /**
      * Add new Todo
-     * @param todo 
+     * @param todo the todo to add :p
      */
     add(todo) {
         this.items.push(todo);
         this._write();
     }
-    
+
     /**
      * Return all todos
      */
     get() {
         return this.items;
     }
-    
+
     /**
      * Clear all todos
      */
@@ -58,10 +58,13 @@ class TodoService {
      * 
      * @internal
      */
+
     private _read(): any[] {
 
         if (localStorage.getItem('items')) {
-            return JSON.parse(localStorage.getItem('items'));
+            return JSON.parse(
+                localStorage.getItem('items')
+            );
         }
 
         return [];

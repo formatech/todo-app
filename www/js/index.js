@@ -9,7 +9,7 @@ var ContactController = (function () {
          | ----------------------------------------------------------
          | the `.val()` method return the value of the input
          | Sometimes you may need to call the `.trim()` method to
-         | remove the unecessary whitespaces
+         | remove the unnecessary whitespace
          |
          | Here we are using the **Attribute Selection** we can
          | use any method of selection for example by Class or by Id
@@ -66,7 +66,7 @@ var ContactController = (function () {
             filter: '',
             multiple: true
         };
-        var items = this.contactService.find(fieldsToSearchOn, function (contacts) {
+        this.contactService.find(fieldsToSearchOn, function (contacts) {
             _this._renderItems(_this.$contactsHolder, contacts);
         }, function (error) {
             ons.notification.alert('Failed to retrieve contacts');
@@ -115,7 +115,7 @@ var hideDialog = function (id) {
  | At this point all PhoneGap plugins are ready, for example
  | the `navigator.contacts` plugin.
  |
- | However we are bootstraping our application also here,
+ | However we are bootstrapping our application also here,
  | That's fine as a start, unless we faced some conflicts
  | with other libraries.
  |
@@ -350,7 +350,7 @@ var TodoService = (function () {
     }
     /**
      * Add new Todo
-     * @param todo
+     * @param todo the todo to add :p
      */
     TodoService.prototype.add = function (todo) {
         this.items.push(todo);
