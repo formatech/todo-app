@@ -311,7 +311,7 @@ In this way we separate the tabs handling code outside of my project, **separati
 
 ```ts
 
-$(function () {
+(function () {
     $('tabs').each(function () {
         var $tabs = $(this).find('tab');
         var selector = '#' + $(this).attr('target');
@@ -470,7 +470,7 @@ options.hasPhoneNumber = true;
 // Search in the following fields
 var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 
-navigator.contacts.find(fields, function onSuscess(contacts) {
+navigator.contacts.find(fields, function onSuccess(contacts) {
     // display the list of contacts
 }, function onError(error) {
     // show an error message
