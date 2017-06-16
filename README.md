@@ -20,7 +20,7 @@ A PhoneGap Todo App
  - `./monitor` to launch android device monitor, show logs
  - `./android` to launch the android sdk
  - `./android avd` to launch the avd
- - `./emulator  -list-avds` to list the avAndroid_Accelerated_x86ailable android emulator
+ - `./emulator  -list-avds` to list the available android emulator
  - 
 
 > **Note:** Run the x86 emulator it's about 10x faster 
